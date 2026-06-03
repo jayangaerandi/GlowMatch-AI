@@ -1,0 +1,19 @@
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+
+# Node
+frontend/node_modules/
+
+# Environment
+.env
+
+# Uploads
+backend/uploads/
+
+# Mac
+.DS_Store
+
+# VS Code
+.vscode/
