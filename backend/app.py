@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+from ai.recommendation_engine import get_makeup_recommendation
 
 from ai.face_detector import detect_face
 from ai.skin_tone_detector import detect_skin_tone
@@ -37,11 +38,14 @@ def upload_image():
     # Skin Tone Detection
     skin_tone = detect_skin_tone(image_path)
 
+    recommendation = get_makeup_recommendation(skin_tone)
+
     return jsonify({
-        "message": "Analysis Completed",
-        "faces_detected": faces_found,
-        "skin_tone": skin_tone
-    })
+    "message": "Analysis Completed",
+    "faces_detected": faces_found,
+    "skin_tone": skin_tone,
+    "recommendation": recommendation
+})
 
 
 @app.route('/')

@@ -29,8 +29,6 @@ function Upload() {
       );
 
       setMessage(response.data.message);
-
-      // Store AI analysis result
       setResult(response.data);
 
     } catch (error) {
@@ -79,6 +77,26 @@ function Upload() {
             <strong>Skin Tone:</strong>{" "}
             {result.skin_tone}
           </p>
+
+          <hr />
+
+          <h3>Recommended Products</h3>
+
+          <p>
+            <strong>Foundation:</strong>{" "}
+            {result.recommendation?.foundation}
+          </p>
+
+          <p>
+            <strong>Lipstick:</strong>{" "}
+            {result.recommendation?.lipstick}
+          </p>
+
+          <p>
+            <strong>Blush:</strong>{" "}
+            {result.recommendation?.blush}
+          </p>
+
         </div>
       )}
 
