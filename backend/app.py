@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from ai.recommendation_engine import get_makeup_recommendation
+from db import analysis_collection
 
 from ai.face_detector import detect_face
 from ai.skin_tone_detector import detect_skin_tone
@@ -38,14 +39,37 @@ def upload_image():
     # Skin Tone Detection
     skin_tone = detect_skin_tone(image_path)
 
+    # Makeup Recommendation
     recommendation = get_makeup_recommendation(skin_tone)
 
+    # Save to MongoDB
+    result = analysis_collection.insert_one({
+        "image_name": image.filename,
+        "faces_detected": faces_found,
+        "skin_tone": skin_tone,
+        "recommendation": recommendation
+    })
+
+    print("Saved to MongoDB:", result.inserted_id)
+
     return jsonify({
-    "message": "Analysis Completed",
-    "faces_detected": faces_found,
-    "skin_tone": skin_tone,
-    "recommendation": recommendation
-})
+        "message": "Analysis Completed",
+        "faces_detected": faces_found,
+        "skin_tone": skin_tone,
+        "recommendation": recommendation
+    })
+
+@app.route('/history', methods=['GET'])
+def get_history():
+
+    history = list(
+        analysis_collection.find(
+            {},
+            {"_id": 0}
+        )
+    )
+
+    return jsonify(history)    
 
 
 @app.route('/')
