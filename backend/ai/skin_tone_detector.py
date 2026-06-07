@@ -9,12 +9,16 @@ def detect_skin_tone(image_path):
 
     avg_color = image.mean(axis=(0, 1))
     brightness = np.mean(avg_color)
+    print("Brightness:", brightness)
 
-    if brightness > 180:
-        return "Fair"
-    elif brightness > 130:
-        return "Medium"
-    elif brightness > 90:
-        return "Tan"
+    if brightness > 200:
+       return "Fair"
+
+    elif brightness > 150:
+       return "Medium"
+
+    elif brightness > 100:
+       return "Tan"
+
     else:
-        return "Deep"
+       return "Deep"
