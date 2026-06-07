@@ -7,6 +7,7 @@ from ai.predictor import predict_product
 
 from ai.face_detector import detect_face
 from ai.skin_tone_detector import detect_skin_tone
+from ai.chatbot import get_beauty_advice
 
 app = Flask(__name__)
 CORS(app)
@@ -86,6 +87,22 @@ def get_history():
 def home():
     return "GlowMatch AI Backend Running"
 
+@app.route('/chat', methods=['POST'])
+def chat():
+
+    data = request.json
+
+    question = data.get("question")
+
+    answer = get_beauty_advice(question)
+
+    return jsonify({
+        "answer": answer
+    })
+
+print(app.url_map)
+ 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
