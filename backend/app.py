@@ -1,3 +1,5 @@
+print("APP.PY STARTED")
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
@@ -7,7 +9,7 @@ from ai.predictor import predict_product
 
 from ai.face_detector import detect_face
 from ai.skin_tone_detector import detect_skin_tone
-from ai.chatbot import get_beauty_advice
+from ai.hybrid_chatbot import get_beauty_advice
 
 app = Flask(__name__)
 CORS(app)
@@ -90,19 +92,19 @@ def home():
 @app.route('/chat', methods=['POST'])
 def chat():
 
-    data = request.json
+    data = request.get_json()
 
     question = data.get("question")
 
     answer = get_beauty_advice(question)
 
+    print(answer)
+
     return jsonify({
         "answer": answer
     })
-
 print(app.url_map)
  
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run(host="0.0.0.0", port=5001, debug=True)
