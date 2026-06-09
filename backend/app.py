@@ -110,6 +110,36 @@ def chat():
     return jsonify({
         "answer": answer
     })
+
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+
+    total = analysis_collection.count_documents({})
+
+    fair = analysis_collection.count_documents({
+        "skin_tone": "Fair"
+    })
+
+    medium = analysis_collection.count_documents({
+        "skin_tone": "Medium"
+    })
+
+    tan = analysis_collection.count_documents({
+        "skin_tone": "Tan"
+    })
+
+    deep = analysis_collection.count_documents({
+        "skin_tone": "Deep"
+    })
+
+    return jsonify({
+        "total": total,
+        "fair": fair,
+        "medium": medium,
+        "tan": tan,
+        "deep": deep
+    })
+        
 print(app.url_map)
  
 
