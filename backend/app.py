@@ -1,3 +1,4 @@
+latest_skin_tone = "Unknown"
 print("APP.PY STARTED")
 
 from flask import Flask, request, jsonify
@@ -42,6 +43,9 @@ def upload_image():
 
     # Skin Tone Detection
     skin_tone = detect_skin_tone(image_path)
+
+    global latest_skin_tone
+    latest_skin_tone = skin_tone
 
     # Makeup Recommendation
     recommendation = get_makeup_recommendation(
@@ -96,7 +100,10 @@ def chat():
 
     question = data.get("question")
 
-    answer = get_beauty_advice(question)
+    answer = get_beauty_advice(
+    question,
+    latest_skin_tone
+    )
 
     print(answer)
 
