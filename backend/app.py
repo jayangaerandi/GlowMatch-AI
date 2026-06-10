@@ -12,6 +12,7 @@ from ai.face_detector import detect_face
 from ai.skin_tone_detector import detect_skin_tone
 from ai.hybrid_chatbot import get_beauty_advice
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -86,8 +87,10 @@ def get_history():
         )
     )
 
-    return jsonify(history)    
+    print("HISTORY RECORDS:")
+    print(history)
 
+    return jsonify(history)
 
 @app.route('/')
 def home():
@@ -139,7 +142,7 @@ def dashboard():
         "tan": tan,
         "deep": deep
     })
-        
+
 print(app.url_map)
  
 
