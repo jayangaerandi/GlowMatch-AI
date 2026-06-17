@@ -5,68 +5,103 @@ def get_beauty_advice(question):
     if "foundation" in question:
 
         return """
-Foundation is one of the most important makeup products because it creates an even base for the rest of your makeup.
+Foundation creates an even skin tone and serves as the base for makeup.
 
-For fair skin tones, choose light ivory or beige shades.
-For medium skin tones, natural beige and warm nude shades work well.
-For tan skin tones, honey and caramel shades are usually suitable.
-For deep skin tones, rich cocoa and espresso shades provide better coverage.
+Recommendations by skin tone:
 
-Always test foundation on your jawline and blend it properly for a natural finish.
+• Fair Skin: Ivory, Porcelain and Light Beige shades.
+• Medium Skin: Natural Beige and Warm Nude shades.
+• Tan Skin: Honey and Caramel shades.
+• Deep Skin: Cocoa and Espresso shades.
+
+Tips:
+1. Moisturize before applying foundation.
+2. Match foundation to your jawline.
+3. Blend using a brush or sponge.
+4. Set with powder for longer wear.
+
+A properly selected foundation can improve both coverage and overall makeup appearance.
 """
 
     elif "lipstick" in question:
 
         return """
-Choosing the right lipstick depends on your skin tone and the occasion.
+Choosing lipstick depends on your skin tone and desired look.
 
-Fair skin tones usually look great with pink, peach, and nude shades.
-Medium skin tones suit rose, mauve, and berry colors.
-Tan skin tones pair well with coral, brick red, and warm brown shades.
-Deep skin tones can confidently wear plum, burgundy, and deep red colors.
+Recommended shades:
 
-Applying a lip liner before lipstick can help improve definition and increase durability.
-"""
-
-    elif "oily skin" in question:
-
-        return """
-For oily skin, use oil-free and non-comedogenic makeup products.
+• Fair Skin: Pink, Peach and Nude.
+• Medium Skin: Rose, Mauve and Berry.
+• Tan Skin: Coral, Brick Red and Warm Brown.
+• Deep Skin: Plum, Burgundy and Deep Red.
 
 Tips:
-• Apply a mattifying primer before foundation.
-• Choose matte foundations instead of dewy formulas.
-• Use setting powder on oily areas such as the T-zone.
-• Finish with a setting spray to keep makeup in place longer.
+1. Use lip liner before lipstick.
+2. Exfoliate dry lips.
+3. Apply a second coat for longer-lasting color.
 
-These steps help reduce shine and improve makeup longevity.
-"""
-
-    elif "dry skin" in question:
-
-        return """
-Dry skin requires extra hydration before applying makeup.
-
-Tips:
-• Cleanse your face gently.
-• Apply a moisturizer and hydrating primer.
-• Use liquid or cream foundations instead of powder formulas.
-• Avoid excessive setting powder because it can emphasize dry patches.
-
-Hydrated skin creates a smoother and more natural makeup finish.
+The right lipstick can enhance your natural features and complete your makeup look.
 """
 
     elif "blush" in question:
 
         return """
-Blush adds warmth and dimension to the face.
+Blush adds warmth and dimension to your face.
 
-Fair skin tones generally suit soft pink shades.
-Medium skin tones look great with peach and coral shades.
-Tan skin tones often benefit from terracotta and warm coral shades.
-Deep skin tones pair beautifully with berry and deep orange tones.
+Recommended shades:
 
-Apply blush lightly on the apples of the cheeks and blend upward toward the temples.
+• Fair Skin: Soft Pink.
+• Medium Skin: Peach and Coral.
+• Tan Skin: Terracotta.
+• Deep Skin: Berry and Deep Orange.
+
+Apply blush on the apples of your cheeks and blend upward toward the temples for a natural effect.
+"""
+
+    elif "oily skin" in question:
+
+        return """
+For oily skin:
+
+• Use an oil-free cleanser.
+• Apply a mattifying primer.
+• Choose matte foundation.
+• Set makeup with powder.
+• Finish with a setting spray.
+
+These steps help reduce shine and improve makeup longevity throughout the day.
+"""
+
+    elif "dry skin" in question:
+
+        return """
+For dry skin:
+
+• Use a gentle cleanser.
+• Apply moisturizer before makeup.
+• Use hydrating primer.
+• Choose liquid or cream foundation.
+• Avoid excessive powder products.
+
+Hydrated skin provides a smoother makeup application and healthier appearance.
+"""
+
+    elif "skin care" in question or "skincare" in question:
+
+        return """
+Basic skincare routine:
+
+Morning:
+1. Cleanser
+2. Moisturizer
+3. Sunscreen
+
+Night:
+1. Cleanser
+2. Serum
+3. Moisturizer
+
+Consistency is the most important factor for healthy skin.
 """
 
     else:
@@ -74,17 +109,20 @@ Apply blush lightly on the apples of the cheeks and blend upward toward the temp
         return """
 I am your AI Beauty Assistant.
 
-You can ask me questions about:
-• Foundation selection
-• Lipstick recommendations
-• Blush recommendations
-• Makeup tips
-• Oily skin care
-• Dry skin care
-• Beauty routines
+You can ask me about:
 
-Try asking:
-'Which foundation suits medium skin?'
-'Best lipstick for tan skin?'
-'How do I manage oily skin before makeup?'
+• Foundation
+• Lipstick
+• Blush
+• Oily Skin
+• Dry Skin
+• Skincare
+• Makeup Tips
+
+Example Questions:
+
+• Which foundation suits medium skin?
+• Best lipstick for tan skin?
+• How can I manage oily skin?
+• What blush suits fair skin?
 """

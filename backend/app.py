@@ -11,6 +11,10 @@ from ai.predictor import predict_product
 from ai.face_detector import detect_face
 from ai.skin_tone_detector import detect_skin_tone
 from ai.hybrid_chatbot import get_beauty_advice
+from ai.pdf_generator import generate_report
+from flask import send_file
+from auth.auth import (register_user,login_user)
+from db import (analysis_collection,chat_collection)
 
 
 app = Flask(__name__)
@@ -58,11 +62,21 @@ def upload_image():
     )
 
     # Save to MongoDB
+    user_email = request.form.get(
+    "user_email"
+    )
+
     result = analysis_collection.insert_one({
-        "image_name": image.filename,
-        "faces_detected": faces_found,
-        "skin_tone": skin_tone,
-        "recommendation": recommendation
+
+    "user_email": user_email,
+
+    "image_name": image.filename,
+
+    "faces_detected": faces_found,
+
+    "skin_tone": skin_tone,
+
+    "recommendation": recommendation
     })
 
     print("Saved to MongoDB:", result.inserted_id)
@@ -102,17 +116,42 @@ def chat():
     data = request.get_json()
 
     question = data.get("question")
+    user_email = data.get("user_email")
 
     answer = get_beauty_advice(
-    question,
-    latest_skin_tone
+        question,
+        latest_skin_tone
     )
 
-    print(answer)
+    result = chat_collection.insert_one({
+        "user_email": user_email,
+        "question": question,
+        "answer": answer
+    })
+
+    print("QUESTION:", question)
+    print("USER EMAIL:", user_email)
+    print("CHAT SAVED:", result.inserted_id)
 
     return jsonify({
         "answer": answer
     })
+
+@app.route('/chat-history/<email>', methods=['GET'])
+def chat_history(email):
+
+    history = list(
+        chat_collection.find(
+            {
+                "user_email": email
+            },
+            {
+                "_id": 0
+            }
+        )
+    )
+
+    return jsonify(history) 
 
 @app.route('/dashboard', methods=['GET'])
 def dashboard():
@@ -143,8 +182,112 @@ def dashboard():
         "deep": deep
     })
 
-print(app.url_map)
- 
+@app.route('/download-report', methods=['POST'])
+def download_report():
+
+    data = request.json
+
+    file_name = "beauty_report.pdf"
+
+    generate_report(
+        data,
+        file_name
+    )
+
+    return send_file(
+        file_name,
+        as_attachment=True
+    )
+
+@app.route('/register', methods=['POST'])
+def register():
+
+    data = request.get_json()
+
+    result = register_user(
+        data["name"],
+        data["email"],
+        data["password"]
+    )
+
+    return jsonify(result)
+
+@app.route('/login', methods=['POST'])
+def login():
+
+    data = request.get_json()
+
+    result = login_user(
+        data["email"],
+        data["password"]
+    )
+
+    return jsonify(result)    
+
+@app.route('/user-history/<email>', methods=['GET'])
+def user_history(email):
+
+    history = list(
+
+        analysis_collection.find(
+
+            {
+                "user_email": email
+            },
+
+            {
+                "_id": 0
+            }
+        )
+    )
+
+    return jsonify(history)
+
+
+@app.route('/user-dashboard/<email>', methods=['GET'])
+def user_dashboard(email):
+
+    analyses = list(
+        analysis_collection.find(
+            {
+                "user_email": email
+            }
+        )
+    )
+
+    total = len(analyses)
+
+    fair = len([
+        x for x in analyses
+        if x.get("skin_tone") == "Fair"
+    ])
+
+    medium = len([
+        x for x in analyses
+        if x.get("skin_tone") == "Medium"
+    ])
+
+    tan = len([
+        x for x in analyses
+        if x.get("skin_tone") == "Tan"
+    ])
+
+    deep = len([
+        x for x in analyses
+        if x.get("skin_tone") == "Deep"
+    ])
+
+    return jsonify({
+        "total": total,
+        "fair": fair,
+        "medium": medium,
+        "tan": tan,
+        "deep": deep
+    })
+
+print(app.url_map)      
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=True)
+
+  
