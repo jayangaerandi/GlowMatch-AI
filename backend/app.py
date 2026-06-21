@@ -14,7 +14,7 @@ from ai.hybrid_chatbot import get_beauty_advice
 from ai.pdf_generator import generate_report
 from flask import send_file
 from auth.auth import (register_user,login_user)
-from db import (analysis_collection,chat_collection)
+from db import (analysis_collection,chat_collection,users_collection)
 
 
 app = Flask(__name__)
@@ -285,6 +285,44 @@ def user_dashboard(email):
         "deep": deep
     })
 
+@app.route('/profile/<email>', methods=['GET'])
+def profile(email):
+
+    user = users_collection.find_one(
+        {"email": email},
+        {"_id": 0}
+    )
+
+    if not user:
+
+        return jsonify({
+            "message": "User not found"
+        }), 404
+
+    analyses = analysis_collection.count_documents(
+        {
+            "user_email": email
+        }
+    )
+
+    chats = chat_collection.count_documents(
+        {
+            "user_email": email
+        }
+    )
+
+    return jsonify({
+
+        "name": user["name"],
+
+        "email": user["email"],
+
+        "total_analyses": analyses,
+
+        "total_chats": chats
+
+    })
+    
 print(app.url_map)      
 
 if __name__ == '__main__':
