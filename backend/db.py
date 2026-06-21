@@ -10,4 +10,6 @@ users_collection = db["users"]
 
 chat_collection = db["chat_history"]
 
+favorites_collection = db["favorites"]
+
 print("MongoDB Connected Successfully")

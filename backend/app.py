@@ -14,7 +14,7 @@ from ai.hybrid_chatbot import get_beauty_advice
 from ai.pdf_generator import generate_report
 from flask import send_file
 from auth.auth import (register_user,login_user)
-from db import (analysis_collection,chat_collection,users_collection)
+from db import (analysis_collection,chat_collection,users_collection,favorites_collection)
 
 
 app = Flask(__name__)
@@ -322,7 +322,53 @@ def profile(email):
         "total_chats": chats
 
     })
-    
+
+@app.route('/favorites', methods=['POST'])
+def save_favorite():
+
+    data = request.get_json()
+
+    favorites_collection.insert_one({
+
+        "user_email": data["user_email"],
+
+        "product_name": data["product_name"],
+
+        "brand": data["brand"],
+
+        "category": data["category"],
+
+        "image": data["image"],
+
+        "price": data["price"]
+
+    })
+
+    return jsonify({
+        "message": "Added to favorites"
+    })
+
+@app.route('/favorites/<email>', methods=['GET'])
+def get_favorites(email):
+
+    favorites = list(
+
+        favorites_collection.find(
+
+            {
+                "user_email": email
+            },
+
+            {
+                "_id": 0
+            }
+        )
+    )
+
+    return jsonify(favorites)
+
+        
+
 print(app.url_map)      
 
 if __name__ == '__main__':
