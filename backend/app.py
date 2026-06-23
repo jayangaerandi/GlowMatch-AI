@@ -15,6 +15,10 @@ from ai.pdf_generator import generate_report
 from flask import send_file
 from auth.auth import (register_user,login_user)
 from db import (analysis_collection,chat_collection,users_collection,favorites_collection)
+from ai.skin_concern_detector import detect_skin_concern
+from ai.makeup_look_engine import (get_makeup_look)
+from auth.jwt_handler import generate_token
+from auth.auth_middleware import (token_required)
 
 
 app = Flask(__name__)
@@ -27,6 +31,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 
 @app.route('/upload', methods=['POST'])
+@token_required
 def upload_image():
 
     if 'image' not in request.files:
@@ -66,6 +71,15 @@ def upload_image():
     "user_email"
     )
 
+    skin_concern = detect_skin_concern(
+    image_path
+    )
+
+    makeup_look = get_makeup_look(
+    skin_tone,
+    skin_concern
+    )
+
     result = analysis_collection.insert_one({
 
     "user_email": user_email,
@@ -76,8 +90,13 @@ def upload_image():
 
     "skin_tone": skin_tone,
 
+    "skin_concern": skin_concern,
+
+    "makeup_look": makeup_look,
+
     "recommendation": recommendation
     })
+
 
     print("Saved to MongoDB:", result.inserted_id)
     print(type(recommendation))
@@ -87,11 +106,14 @@ def upload_image():
     "message": "Analysis Completed",
     "faces_detected": faces_found,
     "skin_tone": skin_tone,
+    "skin_concern": skin_concern,
+    "makeup_look": makeup_look,
     "recommendation": recommendation,
     "predicted_category": predicted_category
     })
 
 @app.route('/history', methods=['GET'])
+@token_required
 def get_history():
 
     history = list(
@@ -138,6 +160,7 @@ def chat():
     })
 
 @app.route('/chat-history/<email>', methods=['GET'])
+@token_required
 def chat_history(email):
 
     history = list(
@@ -222,9 +245,18 @@ def login():
         data["password"]
     )
 
-    return jsonify(result)    
+    if result["success"]:
+
+        token = generate_token(
+            result["user"]
+        )
+
+        result["token"] = token
+
+    return jsonify(result)  
 
 @app.route('/user-history/<email>', methods=['GET'])
+@token_required
 def user_history(email):
 
     history = list(
@@ -245,6 +277,7 @@ def user_history(email):
 
 
 @app.route('/user-dashboard/<email>', methods=['GET'])
+@token_required
 def user_dashboard(email):
 
     analyses = list(
@@ -286,6 +319,7 @@ def user_dashboard(email):
     })
 
 @app.route('/profile/<email>', methods=['GET'])
+@token_required
 def profile(email):
 
     user = users_collection.find_one(
@@ -324,6 +358,7 @@ def profile(email):
     })
 
 @app.route('/favorites', methods=['POST'])
+@token_required
 def save_favorite():
 
     data = request.get_json()
@@ -349,6 +384,7 @@ def save_favorite():
     })
 
 @app.route('/favorites/<email>', methods=['GET'])
+@token_required
 def get_favorites(email):
 
     favorites = list(

@@ -107,6 +107,27 @@ def generate_report(data, filename):
         )
     )
 
+    content.append(
+        Paragraph(
+           "Recommended Makeup Look",
+           styles["Heading2"]
+        )
+    )
+
+    content.append(
+        Paragraph(
+           data["makeup_look"]["look_name"],
+           styles["Normal"]
+        )
+    )
+
+    content.append(
+        Paragraph(
+           data["makeup_look"]["description"],
+           styles["Normal"]
+        )
+    )
+
     content.append(Spacer(1, 20))
 
     # --------------------------------------------------
