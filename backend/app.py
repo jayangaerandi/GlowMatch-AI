@@ -274,6 +274,63 @@ def change_user_password():
 
     return jsonify(result)    
 
+@app.route('/forgot-password', methods=['POST'])
+def forgot_password():
+
+    data = request.get_json()
+
+    user = users_collection.find_one({
+
+        "email": data["email"]
+
+    })
+
+    if not user:
+
+        return jsonify({
+
+            "success": False,
+
+            "message": "Email not found"
+
+        })
+
+    hashed = bcrypt.hashpw(
+
+        data["new_password"].encode(),
+
+        bcrypt.gensalt()
+
+    ).decode()
+
+    users_collection.update_one(
+
+        {
+
+            "email": data["email"]
+
+        },
+
+        {
+
+            "$set": {
+
+                "password": hashed
+
+            }
+
+        }
+
+    )
+
+    return jsonify({
+
+        "success": True,
+
+        "message": "Password updated successfully"
+
+    })    
+
 @app.route('/user-history/<email>', methods=['GET'])
 @token_required
 def user_history(email):
@@ -475,22 +532,36 @@ def admin_login():
 def admin_dashboard():
 
     total_users = users_collection.count_documents({})
-
     total_analyses = analysis_collection.count_documents({})
-
     total_chats = chat_collection.count_documents({})
-
     total_favorites = favorites_collection.count_documents({})
+
+    fair = analysis_collection.count_documents({"skin_tone": "Fair"})
+    medium = analysis_collection.count_documents({"skin_tone": "Medium"})
+    tan = analysis_collection.count_documents({"skin_tone": "Tan"})
+    deep = analysis_collection.count_documents({"skin_tone": "Deep"})
+
+    acne = analysis_collection.count_documents({"skin_concern": "Acne"})
+    dry = analysis_collection.count_documents({"skin_concern": "Dry Skin"})
+    oily = analysis_collection.count_documents({"skin_concern": "Oily Skin"})
+    normal = analysis_collection.count_documents({"skin_concern": "Normal"})
 
     return jsonify({
 
         "users": total_users,
-
         "analyses": total_analyses,
-
         "chats": total_chats,
+        "favorites": total_favorites,
 
-        "favorites": total_favorites
+        "fair": fair,
+        "medium": medium,
+        "tan": tan,
+        "deep": deep,
+
+        "acne": acne,
+        "dry": dry,
+        "oily": oily,
+        "normal": normal
 
     })
 
