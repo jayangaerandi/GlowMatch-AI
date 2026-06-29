@@ -13,7 +13,7 @@ from ai.skin_tone_detector import detect_skin_tone
 from ai.hybrid_chatbot import get_beauty_advice
 from ai.pdf_generator import generate_report
 from flask import send_file
-from auth.auth import (register_user,login_user)
+from auth.auth import (register_user,login_user,change_password)
 from db import (analysis_collection,chat_collection,users_collection,favorites_collection)
 from ai.skin_concern_detector import detect_skin_concern
 from ai.makeup_look_engine import (get_makeup_look)
@@ -255,6 +255,24 @@ def login():
         result["token"] = token
 
     return jsonify(result)  
+
+@app.route('/change-password', methods=['POST'])
+@token_required
+def change_user_password():
+
+    data = request.get_json()
+
+    result = change_password(
+
+        data["email"],
+
+        data["current_password"],
+
+        data["new_password"]
+
+    )
+
+    return jsonify(result)    
 
 @app.route('/user-history/<email>', methods=['GET'])
 @token_required

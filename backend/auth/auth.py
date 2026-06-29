@@ -65,3 +65,44 @@ def login_user(email, password):
         "success": False,
         "message": "Invalid password"
     }
+
+def change_password(email, current_password, new_password):
+
+    user = users_collection.find_one({
+        "email": email
+    })
+
+    if not user:
+        return {
+            "success": False,
+            "message": "User not found"
+        }
+
+    if not bcrypt.checkpw(
+        current_password.encode(),
+        user["password"].encode()
+    ):
+
+        return {
+            "success": False,
+            "message": "Current password is incorrect"
+        }
+
+    hashed_password = bcrypt.hashpw(
+        new_password.encode(),
+        bcrypt.gensalt()
+    ).decode()
+
+    users_collection.update_one(
+        {"email": email},
+        {
+            "$set": {
+                "password": hashed_password
+            }
+        }
+    )
+
+    return {
+        "success": True,
+        "message": "Password changed successfully"
+    }    
