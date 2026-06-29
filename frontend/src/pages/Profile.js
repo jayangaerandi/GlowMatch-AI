@@ -32,7 +32,7 @@ function Profile() {
 
     }
 
-  }, []);
+  }, [user]);
 
   const fetchProfile = async () => {
 

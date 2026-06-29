@@ -18,7 +18,7 @@ function Favorites() {
       setLoading(false);
     }
 
-  }, []);
+  }, [user]);
 
   const fetchFavorites = async () => {
 

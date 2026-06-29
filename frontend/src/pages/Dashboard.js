@@ -13,7 +13,7 @@ function Dashboard() {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [user]);
 
   const fetchStats = async () => {
     try {

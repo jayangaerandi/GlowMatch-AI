@@ -18,7 +18,7 @@ function ChatHistory() {
       setLoading(false);
     }
 
-  }, []);
+  }, [user]);
 
   const fetchHistory = async () => {
 

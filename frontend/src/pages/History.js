@@ -19,7 +19,7 @@ function History() {
       setLoading(false);
     }
 
-  }, []);
+  }, [user]);
 
   const fetchHistory = async () => {
 
