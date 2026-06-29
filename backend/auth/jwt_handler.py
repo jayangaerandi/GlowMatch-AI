@@ -1,7 +1,8 @@
+import os
 import jwt
 import datetime
 
-SECRET_KEY = "GlowMatch_AI_Super_Secure_Secret_Key_2026_Authentication"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 def generate_token(user):
 

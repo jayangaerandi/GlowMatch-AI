@@ -1,3 +1,5 @@
+import os
+
 from pymongo import MongoClient
 
 client = MongoClient("mongodb+srv://glowmatchadmin:GlowAI2026@cluster0.eavwsh7.mongodb.net/?appName=Cluster0")
@@ -11,5 +13,7 @@ users_collection = db["users"]
 chat_collection = db["chat_history"]
 
 favorites_collection = db["favorites"]
+
+admins_collection = db["admins"]
 
 print("MongoDB Connected Successfully")
