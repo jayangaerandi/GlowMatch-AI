@@ -12,33 +12,30 @@ from auth.jwt_handler import (
 def token_required(f):
 
     @wraps(f)
-
     def decorated(*args, **kwargs):
 
         auth_header = request.headers.get(
             "Authorization"
         )
 
-        if not auth_header:
+        print("AUTH HEADER:", auth_header)
 
+        if not auth_header:
             return jsonify({
-                "message":
-                "Token missing"
+                "message": "Token missing"
             }), 401
 
-        token = auth_header.split(
-            " "
-        )[1]
+        token = auth_header.split(" ")[1]
 
-        user = verify_token(
-            token
-        )
+        print("TOKEN:", token)
+
+        user = verify_token(token)
+
+        print("VERIFY TOKEN RESULT:", user)
 
         if not user:
-
             return jsonify({
-                "message":
-                "Invalid token"
+                "message": "Invalid token"
             }), 401
 
         return f(*args, **kwargs)

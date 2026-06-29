@@ -24,7 +24,8 @@ def register_user(name, email, password):
     users_collection.insert_one({
         "name": name,
         "email": email,
-        "password": hashed_password.decode("utf-8")
+        "password": hashed_password.decode("utf-8"),
+        "role": "user"
     })
 
     return {

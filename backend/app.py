@@ -19,6 +19,7 @@ from ai.skin_concern_detector import detect_skin_concern
 from ai.makeup_look_engine import (get_makeup_look)
 from auth.jwt_handler import generate_token
 from auth.auth_middleware import (token_required)
+import bcrypt
 
 
 app = Flask(__name__)
@@ -403,7 +404,108 @@ def get_favorites(email):
 
     return jsonify(favorites)
 
+@app.route('/admin-login', methods=['POST'])
+def admin_login():
+
+    data = request.get_json()
+
+    admin = users_collection.find_one({
+        "email": data["email"],
+        "role": "admin"
         
+    })
+
+    print("LOGIN EMAIL:", data["email"])
+
+    admin = users_collection.find_one({
+       "email": data["email"],
+       "role": "admin"
+    })
+
+    print("ADMIN FOUND:", admin)
+
+    if not admin:
+
+        return jsonify({
+            "success": False,
+            "message": "Admin not found"
+        })
+
+    if bcrypt.checkpw(
+        data["password"].encode(),
+        admin["password"].encode()
+    ):
+
+        token = generate_token({
+            "name": admin["name"],
+            "email": admin["email"],
+            "role": "admin"
+        })
+
+        return jsonify({
+            "success": True,
+            "token": token
+        })
+
+    return jsonify({
+        "success": False,
+        "message": "Invalid password"
+    })
+
+@app.route('/admin-dashboard')
+@token_required
+def admin_dashboard():
+
+    total_users = users_collection.count_documents({})
+
+    total_analyses = analysis_collection.count_documents({})
+
+    total_chats = chat_collection.count_documents({})
+
+    total_favorites = favorites_collection.count_documents({})
+
+    return jsonify({
+
+        "users": total_users,
+
+        "analyses": total_analyses,
+
+        "chats": total_chats,
+
+        "favorites": total_favorites
+
+    })
+
+@app.route('/admin/users')
+@token_required
+def get_users():
+
+    users = list(
+
+        users_collection.find(
+            {},
+            {"_id": 0}
+        )
+
+    )
+
+    return jsonify(users)
+
+
+@app.route(
+    '/admin/delete-user/<email>',
+    methods=['DELETE']
+)
+@token_required
+def delete_user(email):
+
+    users_collection.delete_one({
+        "email": email
+    })
+
+    return jsonify({
+        "message": "User deleted"
+    })                    
 
 print(app.url_map)      
 

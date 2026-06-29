@@ -7,9 +7,11 @@ def generate_token(user):
 
     payload = {
 
-        "name": user["name"],
+        "name": user.get("name"),
 
-        "email": user["email"],
+        "email": user.get("email"),
+
+        "role": user.get("role", "user"),
 
         "exp": datetime.datetime.utcnow()
         + datetime.timedelta(days=1)
