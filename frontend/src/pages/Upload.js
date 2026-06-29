@@ -70,15 +70,139 @@ function Upload() {
   const [loading, setLoading] = useState(false);
 
   if (!user) {
-    return (
-      <div style={{ padding: "40px" }}>
-        <h2>🔒 Login Required</h2>
-        <p>
-          Please login to use GlowMatch AI.
-        </p>
+
+  return (
+
+    <div
+      style={{
+        minHeight: "100vh",
+        background:
+          "linear-gradient(135deg,#FFE8F3 0%,#F7E8FF 50%,#EEF5FF 100%)",
+        padding: "50px",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+        }}
+      >
+
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "50px",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "42px",
+              background:
+                "linear-gradient(90deg,#ff4d8d,#9b5cff)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontWeight: "bold",
+            }}
+          >
+            ✨ AI Skin Analysis
+          </h1>
+
+          <p
+            style={{
+              fontSize: "18px",
+              color: "#555",
+              lineHeight: "1.8",
+              maxWidth: "800px",
+              margin: "20px auto",
+            }}
+          >
+            Upload your selfie and let GlowMatch AI analyze your skin tone,
+            identify beauty needs, and recommend makeup products specially
+            selected for you.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+            gap: "25px",
+            marginBottom: "50px",
+          }}
+        >
+
+          <div style={cardStyle}>
+            <div style={{ fontSize: "60px" }}>📸</div>
+
+            <h3>AI Skin Detection</h3>
+
+            <p>
+              Detect your skin tone instantly using artificial intelligence.
+            </p>
+          </div>
+
+          <div style={cardStyle}>
+            <div style={{ fontSize: "60px" }}>💄</div>
+
+            <h3>Personalized Makeup</h3>
+
+            <p>
+              Receive foundation, lipstick and blush recommendations that suit
+              your complexion.
+            </p>
+          </div>
+
+          <div style={cardStyle}>
+            <div style={{ fontSize: "60px" }}>🧴</div>
+
+            <h3>Beauty Tips</h3>
+
+            <p>
+              Get customized skincare advice and beauty routines based on your
+              analysis.
+            </p>
+          </div>
+
+        </div>
+
+        <div
+          style={{
+            background: "rgba(255,255,255,0.85)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "25px",
+            padding: "35px",
+            textAlign: "center",
+            boxShadow: "0 12px 30px rgba(0,0,0,.1)",
+          }}
+        >
+
+          <h2 style={{ color: "#ff4d8d" }}>
+            🔒 Login Required
+          </h2>
+
+          <p
+            style={{
+              fontSize: "17px",
+              color: "#666",
+              lineHeight: "1.7",
+            }}
+          >
+            Please log in to upload your image, perform AI-powered skin
+            analysis, receive personalized beauty recommendations, and download
+            your professional GlowMatch AI Beauty Report.
+          </p>
+
+        </div>
+
       </div>
-    );
-  }
+
+    </div>
+
+  );
+
+}
 
   const handleImageChange = (e) => {
 
@@ -203,15 +327,65 @@ function Upload() {
 
   return (
 
-    <div style={{ padding: "20px" }}>
+    <div
+  style={{
+    minHeight: "100vh",
+    padding: "40px",
+    background:
+      "linear-gradient(135deg,#FFE8F3 0%,#F7E8FF 50%,#EEF5FF 100%)",
+    fontFamily: "Arial, sans-serif",
+  }}
+>
 
-      <h1>
-        ✨ GlowMatch AI Analysis
-      </h1>
+      <div
+  style={{
+    textAlign: "center",
+    marginBottom: "35px",
+  }}
+>
+  <h1
+    style={{
+      fontSize: "40px",
+      marginBottom: "12px",
+      background:
+        "linear-gradient(90deg,#ff4d8d,#9b5cff)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      fontWeight: "bold",
+    }}
+  >
+    ✨ GlowMatch AI Skin Analysis
+  </h1>
 
-      <p>
-        Welcome, {user.name}
-      </p>
+  <p
+    style={{
+      fontSize: "18px",
+      color: "#666",
+      marginBottom: "6px",
+    }}
+  >
+    Welcome back,
+    <strong style={{ color: "#ff4d8d" }}>
+      {" "}{user.name}
+    </strong>
+  </p>
+
+  <p
+    style={{
+      color: "#777",
+      fontSize: "16px",
+      maxWidth: "650px",
+      margin: "0 auto",
+      lineHeight: "1.6",
+    }}
+  >
+    Upload a clear facial image to receive AI-powered skin tone detection,
+    personalized beauty advice, and makeup product recommendations tailored
+    just for you.
+  </p>
+</div>
+
+<center>
 
       <input
         type="file"
@@ -584,10 +758,21 @@ function Upload() {
         </div>
 
       )}
+      </center>
 
     </div>
   );
 }
+
+const cardStyle = {
+  background: "rgba(255,255,255,0.82)",
+  backdropFilter: "blur(12px)",
+  padding: "25px",
+  borderRadius: "20px",
+  textAlign: "center",
+  boxShadow: "0 10px 25px rgba(0,0,0,.1)",
+};
+
 
 export default Upload;
 

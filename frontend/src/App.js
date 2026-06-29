@@ -18,6 +18,8 @@ import Favorites from "./pages/Favorites";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminUsers from "./pages/AdminUsers";
+import ForgotPassword from "./pages/ForgotPassword";
+
 
 function App() {
 
@@ -159,6 +161,11 @@ function App() {
               path="/register"
               element={<Register />}
             />
+
+            <Route
+              path="/forgot-password"
+              element={<ForgotPassword/>}
+            /> 
 
             <Route
               path="/profile"

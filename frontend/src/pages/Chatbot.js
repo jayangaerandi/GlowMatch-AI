@@ -3,9 +3,8 @@ import axios from "axios";
 
 function Chatbot() {
 
-  const user = JSON.parse(
-  localStorage.getItem("user")
-  );
+  const user =
+  JSON.parse(localStorage.getItem("user")) || {};
 
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState([]);
@@ -29,7 +28,7 @@ function Chatbot() {
         {
          question: userQuestion,
 
-         user_email: user.email
+         user_email: user?.email || null
         }
       );
 
@@ -69,10 +68,44 @@ function Chatbot() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div
+  style={{
+    minHeight: "100vh",
+    background:
+      "linear-gradient(135deg,#FFE8F3,#F8E7FF,#EEF5FF)",
+    padding: "40px",
+    fontFamily: "Arial, sans-serif",
+  }}
+>
 
-      <h2>GlowMatch AI Beauty Assistant</h2>
+      <div
+  style={{
+    textAlign: "center",
+    marginBottom: "30px",
+  }}
+>
+  <h1
+    style={{
+      fontSize: "36px",
+      marginBottom: "10px",
+      background:
+        "linear-gradient(90deg,#ff4d8d,#9b5cff)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+    }}
+  >
+    ✨ GlowMatch AI Beauty Assistant
+  </h1>
 
+  <p
+    style={{
+      color: "#666",
+      fontSize: "18px",
+    }}
+  >
+    Your Personal AI Makeup & Skincare Expert
+  </p>
+</div>
       <div
         style={{
           border: "1px solid #ddd",
