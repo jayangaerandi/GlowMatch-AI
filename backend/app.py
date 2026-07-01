@@ -26,11 +26,13 @@ import bcrypt
 
 
 app = Flask(__name__)
+
 CORS(
     app,
     resources={
         r"/*": {
             "origins": [
+                "http://localhost:3000",
                 "https://glow-match-ai-psi.vercel.app"
             ]
         }
