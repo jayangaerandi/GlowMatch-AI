@@ -1,6 +1,10 @@
+console.log("API =", API);
+
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+const API = process.env.REACT_APP_API_URL;
 
 function ForgotPassword() {
 
@@ -32,7 +36,7 @@ function ForgotPassword() {
 
       const response = await axios.post(
 
-        "http://127.0.0.1:5001/forgot-password",
+        `${API}/forgot-password`,
 
         {
 
@@ -54,11 +58,17 @@ function ForgotPassword() {
 
     catch (error) {
 
-      console.error(error);
+  console.error(error);
 
-      setMessage("Reset failed");
+  console.log(error.response);
 
-    }
+  if (error.response) {
+    setMessage(error.response.data.message);
+  } else {
+    setMessage(error.message);
+  }
+
+}
 
   };
 
