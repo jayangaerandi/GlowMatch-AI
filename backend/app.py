@@ -349,6 +349,8 @@ def forgot_password():
 @token_required
 def user_history(email):
 
+    print("EMAIL RECEIVED:", email)
+
     history = list(
 
         analysis_collection.find(
@@ -363,12 +365,18 @@ def user_history(email):
         )
     )
 
+    print("HISTORY COUNT:", len(history))
+    if history:
+        print("FIRST DOCUMENT:", history[0])
+
     return jsonify(history)
 
 
 @app.route('/user-dashboard/<email>', methods=['GET'])
 @token_required
 def user_dashboard(email):
+
+    print("EMAIL RECEIVED:", email)
 
     analyses = list(
         analysis_collection.find(
@@ -377,6 +385,11 @@ def user_dashboard(email):
             }
         )
     )
+
+     print("ANALYSES FOUND:", len(analyses))
+
+    if analyses:
+        print("FIRST DOCUMENT:", analyses[0])
 
     total = len(analyses)
 
