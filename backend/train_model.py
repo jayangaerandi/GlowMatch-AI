@@ -1,10 +1,5 @@
-import pandas as pd
+from ai.model import train_model
 
-df = pd.read_csv(
-    "../dataset/most_used_beauty_cosmetics_products_extended.csv"
-)
+train_model()
 
-print(df.head())
-
-print("\nColumns:")
-print(df.columns.tolist())
+print("Training Complete!")
