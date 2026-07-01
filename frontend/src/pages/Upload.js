@@ -2,6 +2,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 function Upload() {
 
   const user = JSON.parse(
@@ -20,7 +22,9 @@ function Upload() {
 
     await axios.post(
 
-      "http://127.0.0.1:5001/favorites",
+      axios.post(
+        `${API}/favorites`
+      ),
 
       {
 
@@ -245,7 +249,9 @@ function Upload() {
 
       const response = await axios.post(
 
-      "http://127.0.0.1:5001/upload",
+      axios.post(
+         `${API}/upload`
+        ),
 
       formData,
 
@@ -286,7 +292,7 @@ function Upload() {
       localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://127.0.0.1:5001/download-report",
+        `${API}/download-report`,
         result,
         {
           responseType: "blob",

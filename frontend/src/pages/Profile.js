@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 function Profile() {
 
   const user = JSON.parse(
@@ -93,7 +95,7 @@ function Profile() {
 
       const response = await axios.post(
 
-        "http://127.0.0.1:5001/change-password",
+        `${API}/change-password`,
 
         {
 

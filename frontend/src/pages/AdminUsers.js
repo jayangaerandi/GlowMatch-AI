@@ -68,7 +68,7 @@ function AdminUsers() {
 
       await axios.delete(
 
-        `http://127.0.0.1:5001/admin/delete-user/${email}`,
+        `${API}/admin/delete-user/${email}`,
 
         {
           headers: {
