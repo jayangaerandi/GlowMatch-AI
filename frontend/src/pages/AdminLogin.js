@@ -27,8 +27,13 @@ function AdminLogin() {
       if (response.data.success) {
 
         localStorage.setItem(
-          "adminToken",
-          response.data.token
+         "admin",
+        JSON.stringify(response.data.admin)
+        );
+
+        localStorage.setItem(
+         "adminToken",
+        response.data.token
         );
 
         navigate("/admin-dashboard");
