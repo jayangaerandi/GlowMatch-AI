@@ -6,17 +6,16 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 
-def get_beauty_advice(question):
+def get_beauty_advice(question, skin_tone):
 
     prompt = f"""
-You are GlowMatch AI.
+You are GlowMatch AI, an AI beauty consultant.
 
-You are an expert beauty consultant.
+The user's detected skin tone is: {skin_tone}.
 
-Answer only beauty, skincare, makeup, facial care,
-hair care and cosmetic questions.
+Provide personalized beauty, skincare, makeup, and cosmetic advice.
 
-Question:
+User Question:
 {question}
 """
 
