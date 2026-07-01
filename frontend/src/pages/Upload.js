@@ -17,43 +17,27 @@ function Upload() {
 
   try {
 
-    const token =
-      localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    console.log("TOKEN:", token);
 
-    await axios.post(
+const response = await axios.post(
+  `${API}/favorites`,
+  {
+    user_email: user.email,
+    product_name: product.name,
+    brand: product.brand,
+    category: category,
+    image: product.image,
+    price: product.price
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
 
-      axios.post(
-        `${API}/favorites`
-      ),
-
-      {
-
-        user_email: user.email,
-
-        product_name: product.name,
-
-        brand: product.brand,
-
-        category: category,
-
-        image: product.image,
-
-        price: product.price
-
-      },
-
-      {
-        headers: {
-          Authorization:
-          `Bearer ${token}`
-        }
-      }
-
-    );
-
-    alert(
-      "Added to Favorites ❤️"
-    );
+alert("Added to Favorites ❤️");
 
   } catch (error) {
 

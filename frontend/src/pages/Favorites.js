@@ -28,6 +28,8 @@ function Favorites() {
 
     const token = localStorage.getItem("token");
 
+    console.log("TOKEN =", token);
+
     const response = await axios.get(
       `${API}/favorites/${user.email}`,
       {
