@@ -1,6 +1,9 @@
 latest_skin_tone = "Unknown"
 print("APP.PY STARTED")
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
@@ -23,7 +26,16 @@ import bcrypt
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(
+    app,
+    resources={
+        r"/*": {
+            "origins": [
+                "https://glow-match-ai-psi.vercel.app"
+            ]
+        }
+    }
+)
 
 UPLOAD_FOLDER = "uploads"
 
