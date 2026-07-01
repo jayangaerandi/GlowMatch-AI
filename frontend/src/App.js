@@ -5,6 +5,8 @@ import {
   Link
 } from "react-router-dom";
 
+import { useState, useEffect } from "react";
+
 import Home from "./pages/Home";
 import Upload from "./pages/Upload";
 import Chatbot from "./pages/Chatbot";
@@ -22,6 +24,25 @@ import ForgotPassword from "./pages/ForgotPassword";
 
 
 function App() {
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+const [isMobile, setIsMobile] = useState(
+  window.innerWidth <= 768
+);
+
+useEffect(() => {
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () =>
+    window.removeEventListener("resize", handleResize);
+
+}, []);
 
   const admin = JSON.parse(localStorage.getItem("admin"));
   const user = JSON.parse(localStorage.getItem("user"));
@@ -42,82 +63,119 @@ function App() {
       <div>
 
         <nav
-          style={{
-            padding: "20px",
-            background: "#f5d0e6",
-            display: "flex",
-            gap: "20px",
-            alignItems: "center",
-            flexWrap: "wrap"
-          }}
-        >
+  style={{
+    background:
+      "linear-gradient(135deg,#ff4d8d,#9b5cff)",
+    padding: "15px 25px",
+    color: "white",
+    position: "sticky",
+    top: 0,
+    zIndex: 999,
+    boxShadow: "0 4px 15px rgba(0,0,0,.15)"
+  }}
+>
 
-          <Link to="/">Home</Link>
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }}
+  >
 
-          <Link to="/upload">Upload</Link>
+    <h2
+      style={{
+        margin: 0
+      }}
+    >
+      ✨ GlowMatch AI
+    </h2>
 
-          <Link to="/history">History</Link>
+    {isMobile && (
 
-          <Link to="/dashboard">Dashboard</Link>
+      <button
+        onClick={() =>
+          setMenuOpen(!menuOpen)
+        }
+        style={{
+          background: "transparent",
+          border: "none",
+          color: "white",
+          fontSize: "28px",
+          cursor: "pointer"
+        }}
+      >
+        ☰
+      </button>
 
-          <Link to="/chatbot">Chatbot</Link>
+    )}
 
-          <Link to="/chat-history">Chat History</Link>
+  </div>
 
-          <Link to="/profile">Profile</Link>
+  {(!isMobile || menuOpen) && (
 
-          <Link to="/favorites">Favorites</Link>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        gap: "15px",
+        marginTop: "15px",
+        alignItems: isMobile ? "flex-start" : "center"
+      }}
+    >
 
-          {!user && (
-            <>
-              <Link to="/login">
-                Login
-              </Link>
+      <Link style={linkStyle} to="/">Home</Link>
 
-              <Link to="/register">
-                Register
-              </Link>
-            </>
-          )}
+      <Link style={linkStyle} to="/upload">Upload</Link>
 
-          {user && (
-            <>
-              <span
-                style={{
-                  marginLeft: "auto",
-                  fontWeight: "bold"
-                }}
-              >
-                Welcome, {user.name}
-              </span>
+      <Link style={linkStyle} to="/history">History</Link>
 
-              <span
-                style={{
-                  color: "#555",
-                  fontSize: "14px"
-                }}
-              >
-                ({user.email})
-              </span>
+      <Link style={linkStyle} to="/dashboard">Dashboard</Link>
 
-              <button
-                onClick={handleLogout}
-                style={{
-                  padding: "8px 15px",
-                  border: "none",
-                  borderRadius: "8px",
-                  backgroundColor: "#ff6b81",
-                  color: "white",
-                  cursor: "pointer",
-                  fontWeight: "bold"
-                }}
-              >
-                Logout
-              </button>
-            </>
-          )}
+      <Link style={linkStyle} to="/chatbot">Chatbot</Link>
 
-        </nav>
+      <Link style={linkStyle} to="/chat-history">Chat History</Link>
+
+      <Link style={linkStyle} to="/favorites">Favorites</Link>
+
+      <Link style={linkStyle} to="/profile">Profile</Link>
+
+      {!user && (
+        <>
+          <Link style={linkStyle} to="/login">Login</Link>
+
+          <Link style={linkStyle} to="/register">Register</Link>
+        </>
+      )}
+
+      {user && (
+        <>
+          <span>
+            👤 {user.name}
+          </span>
+
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: "8px 15px",
+              border: "none",
+              borderRadius: "8px",
+              background: "#ffffff",
+              color: "#ff4d8d",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            Logout
+          </button>
+        </>
+      )}
+
+    </div>
+
+  )}
+
+</nav>
 
         <div style={{ padding: "20px" }}>
 
@@ -203,5 +261,17 @@ function App() {
 
   );
 }
+
+const linkStyle = {
+
+  color: "white",
+
+  textDecoration: "none",
+
+  fontWeight: "bold",
+
+  fontSize: "16px"
+
+};
 
 export default App;
