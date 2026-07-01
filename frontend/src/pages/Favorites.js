@@ -26,22 +26,20 @@ function Favorites() {
 
     try {
 
-      const token =
-      localStorage.getItem("token");  
+      const token = localStorage.getItem("token");
 
-      console.log("TOKEN =", token);
-
-      const response = await axios.get(
-        `${API}/favorites/${user.email}`,
-
-        {
-        headers: {
-          Authorization:
-          `Bearer ${token}`
-        }
-      }
-
-      );
+await axios.post(
+  `${API}/favorites`,
+  {
+    user_email: user.email,
+    product: product
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
 
       setFavorites(response.data);
 
