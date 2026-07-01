@@ -1,51 +1,27 @@
-import ollama
+import os
+from openai import OpenAI
 
-def get_beauty_advice(
-    question,
-    skin_tone
-):
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
 
-    response = ollama.chat(
-        model="llama3.2",
-        options={
-            "temperature": 0.8,
-            "num_predict": 500
-        },
+def get_beauty_advice(question):
+
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
         messages=[
             {
                 "role": "system",
-                "content": f"""
-You are GlowMatch AI Beauty Assistant.
-
-Current User Skin Tone:
-{skin_tone}
-
-When recommending:
-- Foundation
-- Lipstick
-- Blush
-- Makeup styles
-
-always consider the user's skin tone.
-
-You are an experienced beauty consultant,
-makeup artist,
-and skincare specialist.
-
-Provide detailed and professional answers.
-
-Use headings,
-bullet points,
-and explanations.
-
-Do not give short answers.
-"""
+                "content": (
+                    "You are GlowMatch AI, an expert beauty assistant. "
+                    "Give helpful skincare, makeup and beauty advice."
+                ),
             },
             {
                 "role": "user",
-                "content": question
-            }
-        ]
+                "content": question,
+            },
+        ],
     )
 
-    return response["message"]["content"]
+    return response.choices[0].message.content
