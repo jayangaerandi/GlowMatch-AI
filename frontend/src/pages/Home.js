@@ -2,7 +2,7 @@ function Home() {
 
   const featureCard = {
     background: "#ffffff",
-    padding: "25px",
+    padding: "30px 25px",
     borderRadius: "18px",
     boxShadow: "0 8px 18px rgba(0,0,0,0.1)",
     textAlign: "center"
@@ -12,7 +12,7 @@ function Home() {
 
     <div
       style={{
-        padding: "40px",
+        padding: "20px",
         background:
           "linear-gradient(to right,#fff5fa,#eef4ff)",
         minHeight: "100vh"
@@ -24,23 +24,23 @@ function Home() {
 <div
   style={{
     width: "100%",
-    maxWidth: "1300px",
-    margin: "0 auto 50px auto",
+    maxWidth: "1150px",
+    margin: "0 auto 45px auto",
     background:
       "linear-gradient(135deg,#ff4d94,#c44dff,#7b61ff)",
-    borderRadius: "30px",
-    padding: window.innerWidth < 768 ? "35px 20px" : "70px 60px",
+    borderRadius: "24px",
+    padding: "55px 35px",
     color: "white",
     textAlign: "center",
-    boxShadow: "0 18px 45px rgba(0,0,0,.18)",
+    boxShadow: "0 15px 35px rgba(0,0,0,.15)",
     overflow: "hidden",
   }}
 >
 
   <div
     style={{
-      fontSize: window.innerWidth < 768 ? "45px" : "70px",
-      marginBottom: "10px",
+      fontSize: "50px",
+      marginBottom: "8px",
     }}
   >
     ✨
@@ -48,11 +48,10 @@ function Home() {
 
   <h1
     style={{
-      fontSize: window.innerWidth < 768 ? "42px" : "68px",
+      fontSize: "clamp(36px,6vw,58px)",
       fontWeight: "800",
       lineHeight: "1.15",
-      marginBottom: "18px",
-      marginTop: "0",
+      margin: "0 0 18px 0",
     }}
   >
     Welcome to
@@ -62,7 +61,7 @@ function Home() {
 
   <h2
     style={{
-      fontSize: window.innerWidth < 768 ? "24px" : "36px",
+      fontSize: "clamp(20px,3vw,30px)",
       fontWeight: "600",
       marginBottom: "25px",
     }}
@@ -72,11 +71,11 @@ function Home() {
 
   <p
     style={{
-      maxWidth: "850px",
+      maxWidth: "760px",
       margin: "0 auto",
-      fontSize: window.innerWidth < 768 ? "17px" : "21px",
+      fontSize: "clamp(16px,2vw,19px)",
       lineHeight: "1.8",
-      opacity: "0.96",
+      opacity: ".95",
     }}
   >
     Discover personalized beauty recommendations based on your
@@ -92,19 +91,19 @@ function Home() {
       justifyContent: "center",
       flexWrap: "wrap",
       gap: "15px",
-      marginTop: "35px",
+      marginTop: "28px",
     }}
   >
 
     <button
       style={{
+        padding: "14px 28px",
+        borderRadius: "40px",
+        border: "none",
         background: "white",
         color: "#ff4d94",
-        border: "none",
-        borderRadius: "50px",
-        padding: "15px 30px",
-        fontSize: "17px",
         fontWeight: "bold",
+        fontSize: "16px",
         cursor: "pointer",
       }}
     >
@@ -113,13 +112,13 @@ function Home() {
 
     <button
       style={{
+        padding: "14px 28px",
+        borderRadius: "40px",
+        border: "2px solid white",
         background: "transparent",
         color: "white",
-        border: "2px solid white",
-        borderRadius: "50px",
-        padding: "15px 30px",
-        fontSize: "17px",
         fontWeight: "bold",
+        fontSize: "16px",
         cursor: "pointer",
       }}
     >
@@ -146,7 +145,7 @@ function Home() {
         style={{
           display: "grid",
           gridTemplateColumns:
-            "repeat(auto-fit,minmax(250px,1fr))",
+            "repeat(auto-fit,minmax(280px,1fr))",
           gap: "25px",
           marginBottom: "50px"
         }}
@@ -216,7 +215,7 @@ function Home() {
           background: "white",
           padding: "35px",
           borderRadius: "20px",
-          marginBottom: "35px",
+          marginBottom: "45px",
           boxShadow:
             "0 8px 18px rgba(0,0,0,0.08)"
         }}
@@ -258,7 +257,7 @@ function Home() {
           background: "#fff8e6",
           padding: "35px",
           borderRadius: "20px",
-          marginBottom: "35px"
+          marginBottom: "45px"
         }}
       >
 
@@ -297,7 +296,7 @@ function Home() {
           background: "#eef9ff",
           padding: "35px",
           borderRadius: "20px",
-          marginBottom: "35px"
+          marginBottom: "45px"
         }}
       >
 
