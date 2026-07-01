@@ -84,6 +84,8 @@ def change_password(email, current_password, new_password):
             "message": "User not found"
         }
 
+    print("Stored Hash:", user["password"])    
+
     print(
         "PASSWORD MATCH:",
         bcrypt.checkpw(
