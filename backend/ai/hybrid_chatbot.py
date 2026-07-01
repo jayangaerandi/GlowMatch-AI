@@ -1,27 +1,25 @@
 import os
-from openai import OpenAI
+import google.generativeai as genai
 
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
-)
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+model = genai.GenerativeModel("gemini-2.5-flash")
+
 
 def get_beauty_advice(question):
 
-    response = client.chat.completions.create(
-        model="gpt-4.1-mini",
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are GlowMatch AI, an expert beauty assistant. "
-                    "Give helpful skincare, makeup and beauty advice."
-                ),
-            },
-            {
-                "role": "user",
-                "content": question,
-            },
-        ],
-    )
+    prompt = f"""
+You are GlowMatch AI.
 
-    return response.choices[0].message.content
+You are an expert beauty consultant.
+
+Answer only beauty, skincare, makeup, facial care,
+hair care and cosmetic questions.
+
+Question:
+{question}
+"""
+
+    response = model.generate_content(prompt)
+
+    return response.text
