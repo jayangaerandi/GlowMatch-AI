@@ -352,13 +352,10 @@ def user_history(email):
     print("EMAIL RECEIVED:", email)
 
     history = list(
-
         analysis_collection.find(
-
             {
                 "user_email": email
             },
-
             {
                 "_id": 0
             }
@@ -366,6 +363,7 @@ def user_history(email):
     )
 
     print("HISTORY COUNT:", len(history))
+
     if history:
         print("FIRST DOCUMENT:", history[0])
 
@@ -386,7 +384,7 @@ def user_dashboard(email):
         )
     )
 
-     print("ANALYSES FOUND:", len(analyses))
+    print("ANALYSES FOUND:", len(analyses))
 
     if analyses:
         print("FIRST DOCUMENT:", analyses[0])
@@ -420,7 +418,7 @@ def user_dashboard(email):
         "tan": tan,
         "deep": deep
     })
-
+    
 @app.route('/profile/<email>', methods=['GET'])
 @token_required
 def profile(email):
