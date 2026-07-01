@@ -25,6 +25,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
 
+  document.body.style.margin = "0";
+  document.body.style.overflowX = "hidden";
+
   const [menuOpen, setMenuOpen] = useState(false);
 
 const [isMobile, setIsMobile] = useState(
@@ -71,7 +74,10 @@ useEffect(() => {
     position: "sticky",
     top: 0,
     zIndex: 999,
-    boxShadow: "0 4px 15px rgba(0,0,0,.15)"
+    boxShadow: "0 4px 15px rgba(0,0,0,.15)",
+    width: "100%",
+    boxSizing: "border-box",
+    overflowX: "hidden"
   }}
 >
 
@@ -177,7 +183,15 @@ useEffect(() => {
 
 </nav>
 
-        <div style={{ padding: "20px" }}>
+        <div
+  style={{
+    width: "100%",
+    maxWidth: "100%",
+    overflowX: "hidden",
+    boxSizing: "border-box",
+    padding: "15px"
+  }}
+>
 
           <Routes>
 
