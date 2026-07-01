@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -20,7 +22,7 @@ function Dashboard() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        `http://127.0.0.1:5001/user-dashboard/${user.email}`,
+        `${API}/user-dashboard/${user.email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
