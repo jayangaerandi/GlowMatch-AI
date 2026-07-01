@@ -295,57 +295,42 @@ def forgot_password():
 
     data = request.get_json()
 
+    print("FORGOT PASSWORD REQUEST:", data)
+
     user = users_collection.find_one({
-
         "email": data["email"]
-
     })
 
+    print("USER FOUND:", user)
+
     if not user:
-
         return jsonify({
-
             "success": False,
-
             "message": "Email not found"
-
         })
 
     hashed = bcrypt.hashpw(
-
-        data["new_password"].encode(),
-
+        data["new_password"].encode("utf-8"),
         bcrypt.gensalt()
+    ).decode("utf-8")
 
-    ).decode()
-
-    users_collection.update_one(
-
+    result = users_collection.update_one(
         {
-
             "email": data["email"]
-
         },
-
         {
-
             "$set": {
-
                 "password": hashed
-
             }
-
         }
-
     )
 
+    print("MODIFIED COUNT:", result.modified_count)
+
     return jsonify({
-
         "success": True,
-
         "message": "Password updated successfully"
-
-    })    
+    })
 
 @app.route('/user-history/<email>', methods=['GET'])
 @token_required
