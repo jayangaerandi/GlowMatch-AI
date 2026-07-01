@@ -33,7 +33,7 @@ function History() {
       console.log("TOKEN =", token);
 
       const response = await axios.get(
-        `${API}/history/${user.email}`,
+        `${API}/user-history/${user.email}`,
 
         {
           headers: {
