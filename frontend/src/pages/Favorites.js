@@ -24,36 +24,32 @@ function Favorites() {
 
   const fetchFavorites = async () => {
 
-    try {
+  try {
 
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-await axios.post(
-  `${API}/favorites`,
-  {
-    user_email: user.email,
-    product: product
-  },
-  {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
+    const response = await axios.get(
+      `${API}/favorites/${user.email}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    setFavorites(response.data);
+
+  } catch (error) {
+
+    console.error(error);
+
+  } finally {
+
+    setLoading(false);
+
   }
-);
 
-      setFavorites(response.data);
-
-    } catch (error) {
-
-      console.error(error);
-
-    } finally {
-
-      setLoading(false);
-
-    }
-  };
-
+};
   if (!user) {
 
   return (
