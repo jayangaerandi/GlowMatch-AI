@@ -244,41 +244,34 @@ function Upload() {
 
     try {
 
-      const token =
-      localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-      const response = await axios.post(
+  const formData = new FormData();
+  formData.append("image", image);
 
-      axios.post(
-         `${API}/upload`
-        ),
+  const response = await axios.post(
+    `${API}/upload`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
 
-      formData,
+  const data =
+    typeof response.data === "string"
+      ? JSON.parse(response.data)
+      : response.data;
 
-      {
-        headers: {
-          Authorization:
-         `Bearer ${token}`
-        }
-      }
+  setMessage(data.message);
+  setResult(data);
 
-      );
-
-      const data =
-        typeof response.data === "string"
-          ? JSON.parse(response.data)
-          : response.data;
-
-      setMessage(data.message);
-      setResult(data);
-
-    } catch (error) {
-
-      console.error(error);
-
-      setMessage("Upload Failed");
-
-    } finally {
+} catch (error) {
+  console.error(error);
+  setMessage("Upload Failed");
+}finally {
 
       setLoading(false);
     }

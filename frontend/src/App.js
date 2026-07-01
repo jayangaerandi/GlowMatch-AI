@@ -23,9 +23,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+  const admin = JSON.parse(localStorage.getItem("admin"));
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const currentUser = admin || user;
 
   const handleLogout = () => {
 
