@@ -2,7 +2,8 @@ from functools import wraps
 
 from flask import (
     request,
-    jsonify
+    jsonify,
+    g
 )
 
 from auth.jwt_handler import (
@@ -37,6 +38,8 @@ def token_required(f):
             return jsonify({
                 "message": "Invalid token"
             }), 401
+
+        g.user = user    
 
         return f(*args, **kwargs)
 

@@ -4,7 +4,7 @@ print("APP.PY STARTED")
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file, g
 from flask_cors import CORS
 import os
 from ai.recommendation_engine import get_makeup_recommendation
@@ -82,9 +82,9 @@ def upload_image():
     )
 
     # Save to MongoDB
-    user_email = request.form.get(
-    "user_email"
-    )
+    user_email = g.user["email"]
+
+    print("USER EMAIL:", user_email)
 
     skin_concern = detect_skin_concern(
     image_path
@@ -94,6 +94,8 @@ def upload_image():
     skin_tone,
     skin_concern
     )
+
+    print("USER EMAIL:", user_email)
 
     result = analysis_collection.insert_one({
 
@@ -418,7 +420,7 @@ def user_dashboard(email):
         "tan": tan,
         "deep": deep
     })
-    
+
 @app.route('/profile/<email>', methods=['GET'])
 @token_required
 def profile(email):
