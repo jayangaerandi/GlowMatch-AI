@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
+const API = process.env.REACT_APP_API_URL;
+
 function Login() {
 
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ function Login() {
 
       const response = await axios.post(
 
-        "http://127.0.0.1:5001/login",
+        `${API}/login`,
 
         {
 

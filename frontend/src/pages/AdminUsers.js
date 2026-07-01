@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 function AdminUsers() {
 
   const [users, setUsers] =
@@ -24,7 +26,7 @@ function AdminUsers() {
       const response =
         await axios.get(
 
-          "http://127.0.0.1:5001/admin/users",
+          `${API}/admin/users`,
 
           {
             headers: {

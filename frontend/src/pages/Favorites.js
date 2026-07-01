@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 function Favorites() {
 
   const user = JSON.parse(
@@ -30,7 +32,7 @@ function Favorites() {
       console.log("TOKEN =", token);
 
       const response = await axios.get(
-        `http://127.0.0.1:5001/favorites/${user.email}`,
+        `${API}/favorites/${user.email}`,
 
         {
         headers: {

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 function Chatbot() {
 
   const user =
@@ -24,7 +26,7 @@ function Chatbot() {
     try {
 
       const response = await axios.post(
-        "http://127.0.0.1:5001/chat",
+        `${API}/chat`,
         {
          question: userQuestion,
 
@@ -105,6 +107,7 @@ function Chatbot() {
   >
     Your Personal AI Makeup & Skincare Expert
   </p>
+
 </div>
       <div
         style={{
