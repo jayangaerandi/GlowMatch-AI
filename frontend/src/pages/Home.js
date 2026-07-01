@@ -21,53 +21,114 @@ function Home() {
 
       {/* Hero Section */}
 
-      <div
-        style={{
-          textAlign: "center",
-          background:
-            "linear-gradient(135deg,#ff4d94,#9b59b6)",
-          color: "white",
-          padding: "60px",
-          borderRadius: "25px",
-          marginBottom: "40px"
-        }}
-      >
+<div
+  style={{
+    width: "100%",
+    maxWidth: "1300px",
+    margin: "0 auto 50px auto",
+    background:
+      "linear-gradient(135deg,#ff4d94,#c44dff,#7b61ff)",
+    borderRadius: "30px",
+    padding: window.innerWidth < 768 ? "35px 20px" : "70px 60px",
+    color: "white",
+    textAlign: "center",
+    boxShadow: "0 18px 45px rgba(0,0,0,.18)",
+    overflow: "hidden",
+  }}
+>
 
-        <h1
-          style={{
-            fontSize: "48px",
-            marginBottom: "15px"
-          }}
-        >
+  <div
+    style={{
+      fontSize: window.innerWidth < 768 ? "45px" : "70px",
+      marginBottom: "10px",
+    }}
+  >
+    ✨
+  </div>
 
-          ✨ Welcome to GlowMatch AI
+  <h1
+    style={{
+      fontSize: window.innerWidth < 768 ? "42px" : "68px",
+      fontWeight: "800",
+      lineHeight: "1.15",
+      marginBottom: "18px",
+      marginTop: "0",
+    }}
+  >
+    Welcome to
+    <br />
+    GlowMatch AI
+  </h1>
 
-        </h1>
+  <h2
+    style={{
+      fontSize: window.innerWidth < 768 ? "24px" : "36px",
+      fontWeight: "600",
+      marginBottom: "25px",
+    }}
+  >
+    Your Personal AI Beauty Consultant
+  </h2>
 
-        <h2>
+  <p
+    style={{
+      maxWidth: "850px",
+      margin: "0 auto",
+      fontSize: window.innerWidth < 768 ? "17px" : "21px",
+      lineHeight: "1.8",
+      opacity: "0.96",
+    }}
+  >
+    Discover personalized beauty recommendations based on your
+    skin tone, skin concerns and facial features using Artificial
+    Intelligence. Receive tailored makeup suggestions, skincare
+    advice, AI-powered beauty consultations and comprehensive
+    beauty analysis reports—all in one intelligent platform.
+  </p>
 
-          Your Personal AI Beauty Consultant
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      flexWrap: "wrap",
+      gap: "15px",
+      marginTop: "35px",
+    }}
+  >
 
-        </h2>
+    <button
+      style={{
+        background: "white",
+        color: "#ff4d94",
+        border: "none",
+        borderRadius: "50px",
+        padding: "15px 30px",
+        fontSize: "17px",
+        fontWeight: "bold",
+        cursor: "pointer",
+      }}
+    >
+      🚀 Get Started
+    </button>
 
-        <p
-          style={{
-            maxWidth: "800px",
-            margin: "auto",
-            fontSize: "18px",
-            lineHeight: "32px"
-          }}
-        >
+    <button
+      style={{
+        background: "transparent",
+        color: "white",
+        border: "2px solid white",
+        borderRadius: "50px",
+        padding: "15px 30px",
+        fontSize: "17px",
+        fontWeight: "bold",
+        cursor: "pointer",
+      }}
+    >
+      💄 Explore Features
+    </button>
 
-          Discover personalized beauty recommendations
-          designed specifically for your unique skin tone,
-          skin concerns and facial features using
-          Artificial Intelligence.
+  </div>
 
-        </p>
-
-      </div>
-
+</div>
       {/* Features */}
 
       <h2
